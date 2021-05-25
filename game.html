@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Hang-Man</title>
+		<link rel="stylesheet" href="game.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	</head>
+	<body><div id="game">
+			<audio id="clickon">
+				<source src="clickEfeect.mp3" type="audio/mpeg"></source>
+			</audio>
+
+			<audio id="levelUp">
+				<source src="NFF.wav" type="audio/wav"></source>
+			</audio>
+			<canvas id="canvas"></canvas>
+			<table id="theWord">
+				<tr></tr>
+			</table>
+			<table id="keyWord">
+				<tr></tr>
+				<tr></tr>
+				<tr></tr>
+			</table>
+			<div id="hint">
+				
+			</div>
+		</div>
+		<script type="text/javascript">
+			let words=[{word:"vehicle",hint:"It's an object that help us getting faster from place to place"},
+					   {word:"desert" ,hint:"There is a place where by the day is very hot ,but by the night is the opposite side"},
+					   {word:"ocean",hint:"Used to say that if something falls into it, then it is lost forever"},
+					   {word:"Love",hint:"This is the most vital reason for the existence of humanity"}];
+			let chosenWord=words[Math.floor(Math.random()*words.length)];
+			let miss=0;
+			let lost = chosenWord.word.length;
+			function drawHang(canvas,ctx){
+				let i=1;
+				ctx.strokeStyle="white";
+				ctx.lineWidth=2;
+				ctx.beginPath();
+				ctx.moveTo(0,canvas.height-10);
+
+				let interval = setInterval(function(){
+					if(i<50){
+					ctx.lineTo(i,canvas.height-10);
+					ctx.stroke();
+					i++;
+				    }
+
+				   if(i>49  && i<170){
+				   	    if(i==50){
+				   		ctx.moveTo(50,canvas.height-10);
+				     	}
+				    	ctx.lineTo(50,canvas.height-10-i+50);
+				    	ctx.stroke();
+				    	i++;
+				    }
+				    if(i>169&&i<270){
+				    	if(i===170){
+				    	ctx.moveTo(50,canvas.height-128);
+				        }
+				    	ctx.lineTo(i-120,canvas.height-128);
+				    	ctx.stroke();
+				    	i++;
+				    }
+
+				    if(i>269&&i<280){
+				    	if(i===270){
+				    	ctx.moveTo(149,canvas.height-128);
+				    	}
+				    	ctx.lineTo(149,canvas.height-128+i-269);
+				    	ctx.stroke();
+				    	i++;
+				    }
+				   if(i>279&&i<365){
+				   	if(i===280){
+				    	ctx.moveTo(148,canvas.height-118);
+				    }	
+				    	ctx.lineTo(148-i+279,canvas.height-118);
+				    	ctx.stroke();
+				    	i++;
+				    }
+
+				  if(i>364&&i<473){
+				   	if(i===365){
+				    	ctx.moveTo(62,canvas.height-118);
+				    }	
+				    	ctx.lineTo(62,canvas.height-118+i-364);
+				    	ctx.stroke();
+				    	i++;
+				    }
+     			  if(i>472&&i<673){
+				   	if(i===473){
+				    	ctx.moveTo(62,canvas.height-10);
+				    }	
+				    	ctx.lineTo(62+i-472,canvas.height-10);
+				    	ctx.stroke();
+				    	i++;
+				    }
+				   if(i>672&&i<700){
+				   		if(i===673){
+				   			ctx.moveTo(140,canvas.height-118);
+				   		}
+				   		ctx.lineTo(140,canvas.height-118+i-673);
+				    	ctx.stroke();
+				    	i++;
+				   }
+
+				   if(i===700){
+				    	clearInterval(interval);
+				    	console.log(canvas.height);	
+				    }
+				},1);
+
+ 			}
+ 			function drawThemissingLetter(id){
+ 				
+ 				if(miss===1){
+ 					ctx.fillStyle="white";
+					ctx.font = "13px Arial";
+					ctx.fillText(id, 250, 66);
+					let i=0;
+					let inter=setInterval(function(){
+
+								ctx.strokeStyle="white";
+								if(i===0){
+								ctx.beginPath();
+								ctx.moveTo(264,60);
+								}
+								if(i<18){
+									ctx.lineTo(264-i,60);
+									ctx.stroke();
+									console.log(id);
+									i++;
+				    			 }
+				    			 if(i>=18&&i<30){
+				    			 	if(i==18){
+				    			 	ctx.beginPath();
+				    			 	ctx.moveTo(128,canvas.height-30);
+				    			    }
+									ctx.lineTo(128+(i-18),canvas.height-30-(i-18)*1.6);
+									ctx.stroke();
+									console.log(id);
+									i++;
+				    			 }
+				    			 if(i>=30&&i<42){
+				    			 	if(i===30){
+				    			 		ctx.moveTo(139,canvas.height-48.5);
+				    			 	}
+									ctx.lineTo(139+(i-30),canvas.height-48.5+(i-30)*1.6);
+									ctx.stroke();
+									i++;
+				    			 }
+				    			 if(i===42){
+				    			 	clearInterval(inter);
+				    			 	document.getElementById("cover").style.zIndex=-1;
+				    			 }
+						},50);
+
+ 				}
+ 				if(miss===2){
+ 					ctx.fillStyle="white";
+					ctx.font = "13px Arial";
+					ctx.fillText(id, 250, 82);
+					console.log(id);
+					let i=0;
+					let inter=setInterval(function(){
+
+								ctx.strokeStyle="white";
+								if(i===0){
+								ctx.beginPath();
+								ctx.moveTo(264,76);
+								}
+								if(i<18){
+									ctx.lineTo(264-i,76);
+									ctx.stroke();
+									console.log(id);
+									i++;
+				    			 }
+				    			 if(i>=18&&i<44){
+				    			 	if(i===18){
+				    			 		ctx.beginPath();
+				    			 		ctx.moveTo(139,canvas.height-46);
+				    			 		ctx.lineWidth=3;
+				    			 	}
+				    			 	ctx.lineTo(139,canvas.height-46-i+18);
+				    			 	ctx.stroke();
+				    			 	i++;
+				    			 }
+				    			 if(i===44){
+				    			 	clearInterval(inter);
+				    			 	ctx.lineWidth=2;
+				    			 	document.getElementById("cover").style.zIndex=-1;
+				    			 }
+						},50);
+
+
+ 				}
+
+ 				if(miss===3){
+ 					ctx.fillStyle="white";
+					ctx.font = "13px Arial";
+					ctx.fillText(id, 250, 98);
+					let i=0;
+					let inter=setInterval(function(){
+								if(i===0){
+								ctx.strokeStyle="white";
+								ctx.beginPath();
+								ctx.moveTo(264,92);
+								}
+								if(i<18){
+									ctx.lineTo(264-i,92);
+									ctx.stroke();
+									console.log(id);
+									i++;
+				    			 }
+				    			if(i>=18 && i<30){
+				    				if(i===18){
+				    					ctx.beginPath();
+				    					ctx.moveTo(128,canvas.height-56.8);
+				    				}
+				    				ctx.lineTo(128+(i-18),canvas.height-56.8-(i-18));
+				    				ctx.stroke();
+				    				i++;
+				    			}
+				    			if(i>=30 && i< 43){
+				    				if(i===30){
+				    					ctx.beginPath();
+				    					ctx.moveTo(139,canvas.height-68.8);
+				    				}
+				    				ctx.lineTo(139+(i-30),canvas.height-68.8+(i-30));
+				    				ctx.stroke();
+				    				i++;
+				    			}
+				    			 if(i===43){
+				    			 	clearInterval(inter);
+				    			 	document.getElementById("cover").style.zIndex=-1;
+				    			 }
+						},50);			
+					let hint = document.getElementById("hint");
+					hint.style="border:solid 2px white";
+
+					let counter=0;
+
+					//disply the hint
+					setTimeout(function(){
+							let hint = document.getElementById("hint");
+							hint.style="border:solid 2px white";
+							let h3 = document.createElement("h3");
+		
+							h3.innerHTML="Hint"
+							hint.appendChild(h3);
+							let p = document.createElement("p");
+
+							let setI=setInterval(function(){
+									counter+=0.1;
+									hint.style="opacity:"+counter;
+									if(counter>1){
+										clearInterval(setI);
+									}
+			
+							},100);
+
+							hint.appendChild(p);
+							p.innerHTML=chosenWord.hint;
+							console.log(p);
+		    		},500);
+ 				}
+
+ 				if(miss===4){
+ 					ctx.fillStyle="white";
+					ctx.font = "13px Arial";
+					ctx.fillText(id, 250, 114);
+					console.log(id);
+					let i=0;
+					let inter=setInterval(function(){
+								if(i===0){
+								ctx.strokeStyle="white";
+								ctx.beginPath();
+								ctx.moveTo(264,108);
+								}
+								if(i<18){
+									ctx.lineTo(264-i,108);
+									ctx.stroke();
+									console.log(id);
+									i++;
+				    			 }
+				    			 	if(i===18){
+				    			 	ctx.beginPath();
+				    			 	ctx.arc(140,70,10,0,Math.PI*(2*i*0.1));
+				    			 	ctx.stroke();
+				    			 	i++;
+				    			 	clearInterval(inter);
+				    			 	document.getElementById("cover").style.zIndex=-1;
+				    				}
+				    			 
+
+						},50);	
+
+ 				}
+
+ 			   if(miss===5){
+ 					ctx.fillStyle="white";
+					ctx.font = "13px Arial";
+					ctx.fillText(id, 250, 130);
+					let i=0;
+					let inter=setInterval(function(){
+								if(i===0){
+								ctx.strokeStyle="white";
+								ctx.beginPath();
+								ctx.moveTo(264,124);
+								}
+								if(i<18){
+									ctx.lineTo(264-i,124);
+									ctx.stroke();
+									console.log(id);
+									i++;
+				    			 }
+
+				    			 if(i===18){
+				    			 	ctx.fillStyle="white";
+									ctx.font = "9px Arial";
+									ctx.fillText("x", 134, 70);
+									ctx.fillText("x", 142, 70);
+				    			 	clearInterval(inter);
+				    			 	let div=document.getElementById("game");
+				    			 	let h2=document.createElement("h2");
+				    			 	h2.setAttribute("id","gameOver");
+				    			 	h2.innerHTML="Game over";
+				    			 	div.appendChild(h2);
+				    			 	let counter=0;
+				    			 	let setI=setInterval(function(){
+									counter+=0.1;
+									h2.style="opacity:"+counter;
+									if(counter>1){
+										clearInterval(setI);
+									}
+			
+							},100);
+				    			 	//document.getElementById("gameOver").style.opacity=1;
+				    			 	//document.getElementById("cover").style.zIndex=-1;
+				    			 }
+
+					},50);
+	
+					console.log(id);
+					document.getElementById("keyWord").remove();
+					document.getElementById("hint").remove();
+ 				}
+ 			}
+
+			function clickLetter(){
+				document.getElementById("clickon").play();
+
+
+			}
+			function levelUp(){
+				document.getElementById("levelUp").play();
+				
+			}
+
+			//Tracking string.
+			for(let i=0;i<chosenWord.word.length;i++){
+				let td=document.createElement("td");
+				td.setAttribute("class","theLetter");
+				let theWord=document.getElementsByTagName("tr")[0];
+				theWord.appendChild(td);
+			}
+
+	    	function compare(id){
+	    		let tr=document.getElementById(id).parentElement;
+	    		
+				document.getElementById(id).remove();
+				let count=0;
+				let childsCounter =tr.childElementCount;
+				console.log(childsCounter);
+				childsCounter=30*(9-childsCounter)+"px";
+				tr.style.marginLeft=childsCounter;
+				for(let i=0;i<chosenWord.word.length;i++){
+					if(id===chosenWord.word[i].toUpperCase()){
+						console.log(document.getElementsByTagName("td").length);
+						document.getElementsByTagName("td")[i].innerHTML=chosenWord.word[i].toUpperCase();
+
+						lost--;
+						levelUp();
+						document.getElementById("cover").style.zIndex=1;
+						setTimeout(function(){
+							document.getElementById("cover").style.zIndex=-1;
+						},1000);
+						if(lost===0){
+									document.getElementById("keyWord").remove();
+									document.getElementById("hint").remove();
+									let div=document.getElementById("game");
+				    			 	let h2=document.createElement("h2");
+				    			 	h2.setAttribute("id","win");
+				    			 	h2.innerHTML="You win";
+				    			 	div.appendChild(h2);
+				    			 	let counter=0;
+				    			 	let setI=setInterval(function(){
+										counter+=0.1;
+										h2.style="opacity:"+counter;
+										if(counter>1){
+											clearInterval(setI);
+										}
+				                    },100);
+			    		}
+					}
+					else{
+						count++;
+					}
+					if(count===chosenWord.word.length){
+						miss++;
+						clickLetter();
+						document.getElementById("cover").style.zIndex=2;
+ 					/*let keyWord=document.getElementById("keyWord");
+ 					let cover=document.createElement("div");
+ 					cover.setAttribute("id","cover");
+ 					keyWord.appendChild(cover);*/
+ 				       drawThemissingLetter(id);
+					}
+
+				}
+
+			}
+
+			// player's keyword
+			setTimeout(function(){
+				document.getElementById("keyWord").style.border="2px solid white";
+				let keyWord=document.getElementById("keyWord");
+ 				let cover=document.createElement("div");
+ 					cover.setAttribute("id","cover");
+ 					cover.style.zIndex=-1;
+ 					keyWord.appendChild(cover);
+ 				     
+			let asciiLetter =65;
+			for(let i=1;i<4;i++){
+				for(let j=0;j<9;j++){
+					if(i===1 && j<8){
+						
+							let td=document.createElement("td");
+							td.setAttribute("class","letter");
+							td.setAttribute("id",String.fromCharCode(asciiLetter));
+							td.setAttribute("onclick","compare(this.id)");
+
+							let keyWord=document.getElementsByTagName("tr")[i];
+							keyWord.style.marginLeft="30px";
+							keyWord.appendChild(td);
+							td.innerHTML=String.fromCharCode(asciiLetter);
+							asciiLetter++;
+					    
+					}
+					if(i!==1){
+							let td=document.createElement("td");
+							td.setAttribute("class","letter");
+							td.setAttribute("id",String.fromCharCode(asciiLetter));
+							td.setAttribute("onclick","compare(this.id)");
+							let keyWord=document.getElementsByTagName("tr")[i];
+							keyWord.appendChild(td);
+							td.innerHTML=String.fromCharCode(asciiLetter);
+							asciiLetter++;
+					}
+				}
+			document.getElementById("keyWord").style.opacity=1;
+			}},2800);
+
+		    let canvas=document.getElementById("canvas");
+		    let ctx =canvas.getContext("2d");
+		    drawHang(canvas,ctx);
+			//console.log(id);
+			//document.getElementById("A").remove();
+		</script>
+	</body>
+</html>

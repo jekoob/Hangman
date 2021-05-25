@@ -1,0 +1,116 @@
+body{
+	background: black;
+	margin-top:0;
+	margin-bottom: 0; 
+}
+#game{
+	width:700px ;
+	height:720px;
+	margin: auto; 
+	background: black;
+	margin-top: 0;
+}
+#canvas{
+	width:500px;
+	height:240px;
+	margin-bottom: 40px;
+	margin: auto;
+    display: block;
+}
+
+#theWord{
+    border-spacing: 20px;
+	margin:auto;
+}
+
+.theLetter{
+	border-bottom:2px solid white;
+	height:40px;
+	width:40px;
+	color: white;
+	margin: 20px;
+	text-align: center;
+}
+
+#keyWord{
+	border-spacing: 10px;
+	margin:auto;
+	/*border: white 2px solid;*/
+    border-radius: 40px;
+    width: 600px;
+    height: 170px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.letter{
+color:white;
+height: 30px;
+width:50px;
+border:1px white solid;
+border-radius: 10px;
+text-align: center;
+transition: 0.5s background-color;
+}
+.letter:hover{
+	background: white;
+	color:black;
+	transition-delay: : 0.5s;
+}
+tr{
+	display:block;
+}
+#hint{
+border:1px solid white;
+width: 600px;
+height: 80px;
+margin: auto;
+margin-top: 40px;
+text-align: center;
+color: white;
+opacity: 0;
+}
+
+#cover{
+	width: 600px;
+    height: 188px;
+    z-index: 2;
+    top: 350px;
+    position: fixed;
+}
+
+#gameOver{
+	opacity: 0;
+	color: white;
+    display: inline-block;
+    margin: auto;
+    font-size: 60px;
+    margin-left: 30%;
+    transition: 1S opacity;
+}
+
+#win{
+	opacity: 0;
+	color: white;
+    display: inline-block;
+    margin: auto;
+    font-size: 60px;
+    margin-left: 36%;
+    transition: 1S opacity;
+}
+h3{
+	text-decoration: underline;
+    display: inline-block;
+    float: left;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+p{
+	margin-top: 25px;
+    font-size: 20px;
+    margin-right: 20px;
+    transition: 1s;
+    margin-bottom: 10px;
+    
+}
