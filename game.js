@@ -1,6 +1,6 @@
 
 let words=[{word:"usability",hint:"Testing that checks if the user interface is easy to use and understand"},
-           {word:"regressing" ,hint:"Testing which verifies that software previously developed and tested still performs correctly after it was changed or interfaced with other software."},
+           {word:"regressing",hint:"Testing which verifies that software previously developed and tested still performs correctly after it was changed or interfaced with other software."},
            {word:"interface",hint:"Testing  that checks to evaluate whether systems or components pass data and control correctly to one another"},
            {word:"Love",hint:"This is the most vital reason for the existence of humanity"}];
 let infoText="This is a fun game where you are supposed to discover the hidden word. during the game you have 5 attempts to guess the correct letters in the word. but not everything is that simple there is a man up to you.Every mistake you make, bringing him to hanging death, you have only 5 mistakes to save him<br><br><span id='note'>NOTE : </span>After 3 mistakes you have the option to use the hint button that will appear on the screen.<br><br>The vocabulary is from the QA world  ";
@@ -63,33 +63,37 @@ function returnBtn(){
 
 };
 
-/*function hint(){
-    let mainBox = document.getElementsByTagName("tr")[0];
-    let hint = document.createElement("td");
-    hint.setAttribute("id","hint");
-    mainBox.appendChild(hint);
-    let lightIcon = document.createElement("i");
-    lightIcon.setAttribute("class","far fa-lightbulb");
-    document.getElementById("hint").appendChild(lightIcon);
-};*/
-/*function hint(){
-    let random = chosenWord.word.length * Math.floor(Math.random());
-    document.getElementById("hint").removeAttribute("onclick");
-   // let td =document.getElementsByTagName("td")[random];
-   //td.style.opacity=1;
-   // td.style.fontSize='4vh';
-    let arr=[]
+function hint(){
+    let arr=[];
     for(i=0;i<chosenWord.word.length;i++){
-        if(chosenWord.word[i]===chosenWord.word[random]){
-           let td =document.getElementsByTagName("td")[i];
-            arr[arr.length-1]=i;
+        for(j=0;j<chosenWord.word.length;j++){
+            if(chosenWord.word[i]==chosenWord.word[j] && i!=j){
+                if(arr.length==0){
+                    arr[0]=chosenWord.word[i]
+                    console.log("check1");
+                }
+                else{
+                    arr[arr.length]=chosenWord.word[i];
+                    console.log("check 2 "+arr[1]);
+                }
+            }
         }
     }
-    for(i=0;i<arr.length;i++){
-        document.getElementsByTagName("td")[arr[i]].style.opacity=1
-        document.getElementsByTagName("td")[arr[i]].style.fontSize="4vh";
+    console.log("check 3 "+arr.length + arr);
+    if(arr.length!=0){
+        for(i=0;i<chosenWord.word.length;i++){
+            if(arr[0]==chosenWord.word[i] && arr[0] == arr[1]){
+                document.getElementsByTagName("td")[i].innerHTML=chosenWord.word[i];
+                
+            }
+        }
     }
-};*/
+    else{
+       
+        document.getElementsByTagName("td")[chosenWord.word.length*(Math.floor(Math.random()))].innerHTML=chosenWord.word[chosenWord.word.length*(Math.floor(Math.random()))];
+    }
+
+}
 function keyword(){
     document.getElementById("keyWord").style.border="2px solid white";
     let keyWord=document.getElementById("keyWord");
