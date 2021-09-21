@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Hang-Man</title>
+		<link rel="stylesheet" href="game.css">
+		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	</head>
+	<body id="mainBox">
+		<div id="info-btn">
+			<i class="fa fa-info-circle" aria-hidden="true" onclick="infoBtn()"></i>
+		</div>
+		<div id="description">
+			<p id="p1"></p>
+		</div>
+
+		<div id="game">
+			<!-- <audio id="clickon">
+				<source src="clickEfeect.mp3" type="audio/mpeg"></source>
+			</audio>
+
+			<audio id="levelUp">
+				<source src="NFF.wav" type="audio/wav"></source>
+			</audio> -->
+			<canvas id="canvas"></canvas>
+			<table id="theWord">
+				<tr></tr>
+			</table>
+			<table id="keyWord">
+				<tr></tr>
+				<tr></tr>
+				<tr></tr>
+			</table>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="game.js"></script>
+	</body>
+</html>
