@@ -7,6 +7,7 @@ let infoText="This is a fun game where you are supposed to discover the hidden w
 let chosenWord=words[Math.floor(Math.random()*words.length)];
 let miss=0;
 let lost = chosenWord.word.length;
+let myRight=[];
 function refresh(){
     window.location.reload();
 };
@@ -65,35 +66,57 @@ function returnBtn(){
 
 function hint(){
     let arr=[];
+
     for(i=0;i<chosenWord.word.length;i++){
         for(j=0;j<chosenWord.word.length;j++){
             if(chosenWord.word[i]==chosenWord.word[j] && i!=j){
-                if(arr.length==0){
-                    arr[0]=chosenWord.word[i]
-                    console.log("check1");
-                }
-                else{
-                    arr[arr.length]=chosenWord.word[i];
-                    console.log("check 2 "+arr[1]);
+                for(k=0;k<2;k++){
+                    arr[k]=chosenWord.word[i];
                 }
             }
         }
     }
-    console.log("check 3 "+arr.length + arr);
+    console.log("check 3 : "+arr.length + arr);
+    if(arr.length!=0){
+
+
+                for(j=0;j<myRight.length;j++){
+                    for(k=0;k<arr.length;k++){
+                        if(myRight[j]==arr[k] && arr[1] == arr[0]){
+                            arr=[];
+                        }
+                    }
+                }
+                console.log(myRight);
+                console.log("check 4 : " + arr.length);
+    }
     if(arr.length!=0){
         for(i=0;i<chosenWord.word.length;i++){
-            if(arr[0]==chosenWord.word[i] && arr[0] == arr[1]){
-                document.getElementsByTagName("td")[i].innerHTML=chosenWord.word[i];
-                
+            if(arr[0]==chosenWord.word[i] && arr[0] == arr[1] ){
+             document.getElementsByTagName("td")[i].innerHTML=chosenWord.word[i].toUpperCase();
+            
             }
-        }
-    }
-    else{
-       
-        document.getElementsByTagName("td")[chosenWord.word.length*(Math.floor(Math.random()))].innerHTML=chosenWord.word[chosenWord.word.length*(Math.floor(Math.random()))];
+       }
+       document.getElementById(arr[0].toUpperCase()).remove();
     }
 
-}
+    else{
+        let lettter;
+        let count=0;
+       
+        do {
+            lettter = Math.floor(chosenWord.word.length*Math.random());
+            console.log(lettter);
+            count++;
+        }
+        while (myRight.indexOf(chosenWord.word[lettter]) !=-1 && lost != 0);
+
+         document.getElementsByTagName("td")[lettter].innerHTML=chosenWord.word[lettter].toUpperCase();
+         console.log("check 5 "+chosenWord.word[lettter] +"  count "+count);
+    }
+
+};
+
 function keyword(){
     document.getElementById("keyWord").style.border="2px solid white";
     let keyWord=document.getElementById("keyWord");
@@ -445,6 +468,8 @@ for(let i=0;i<chosenWord.word.length;i++){
     theWord.appendChild(td);
     //document.getElementsByClassName("theLetter")[i].style.fontSize=0;
     //document.getElementsByTagName("td")[i].innerHTML=chosenWord.word[i].toUpperCase();
+
+    //adding an hint lamp at the end of the string.
     if(i+1==chosenWord.word.length){
         let mainBox = document.getElementsByTagName("tr")[0];
         let hint = document.createElement("td");
@@ -471,6 +496,7 @@ function compare(id){
     for(let i=0;i<chosenWord.word.length;i++){
         if(id===chosenWord.word[i].toUpperCase()){
             //console.log(document.getElementsByTagName("td").length);
+            myRight[myRight.length]=chosenWord.word[i];
            document.getElementsByTagName("td")[i].innerHTML=chosenWord.word[i].toUpperCase();
             lost--;
            // levelUp();
