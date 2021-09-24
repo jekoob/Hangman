@@ -64,44 +64,66 @@ function returnBtn(){
 
 };
 
-function hint(){
-    let arr=[];
+//Align the row of deleted char from the keybord.
+function alingRow(element){
+    let tr=document.getElementById(element).parentElement;
+    document.getElementById(element.toUpperCase()).remove();
+    let childsCounter =tr.childElementCount;
+    console.log(childsCounter);
+    childsCounter=30*(9-childsCounter)+"px";
+    tr.style.marginLeft=childsCounter;
+    tr.style.marginRight=childsCounter;
+}
 
+function hint(){
+    let arrOFsameChar=[];
+
+    // check it there is the same char in the chosen word.
     for(i=0;i<chosenWord.word.length;i++){
         for(j=0;j<chosenWord.word.length;j++){
             if(chosenWord.word[i]==chosenWord.word[j] && i!=j){
                 for(k=0;k<2;k++){
-                    arr[k]=chosenWord.word[i];
+                    arrOFsameChar[k]=chosenWord.word[i];
                 }
             }
         }
     }
-    console.log("check 3 : "+arr.length + arr);
-    if(arr.length!=0){
+
+
+    console.log("check 3 : "+arrOFsameChar.length + arrOFsameChar);
+
+    // If there is the same char in the chosen word,it checks if the user have already guessed it.
+    if(arrOFsameChar.length!=0){
 
 
                 for(j=0;j<myRight.length;j++){
-                    for(k=0;k<arr.length;k++){
-                        if(myRight[j]==arr[k] && arr[1] == arr[0]){
-                            arr=[];
+                    for(k=0;k<arrOFsameChar.length;k++){
+                        if(myRight[j]==arrOFsameChar[k] && arrOFsameChar[1] == arrOFsameChar[0]){
+                            arrOFsameChar=[];
                         }
                     }
                 }
                 console.log(myRight);
-                console.log("check 4 : " + arr.length);
+                console.log("check 4 : " + arrOFsameChar.length);
     }
-    if(arr.length!=0){
+
+    // it works if the user still not guess the twise-char.
+    if(arrOFsameChar.length!=0){
         for(i=0;i<chosenWord.word.length;i++){
-            if(arr[0]==chosenWord.word[i] && arr[0] == arr[1] ){
+            if(arrOFsameChar[0]==chosenWord.word[i] && arrOFsameChar[0] == arrOFsameChar[1] ){
              document.getElementsByTagName("td")[i].innerHTML=chosenWord.word[i].toUpperCase();
             
             }
        }
-       document.getElementById(arr[0].toUpperCase()).remove();
+
+       
+        //Align the row of deleted char from the keybord.
+        alingRow(arrOFsameChar[0].toUpperCase());
     }
 
+    // It works noly if the user have gueseed the char.
     else{
-        let lettter;
+        let lettter; // Pointing the position of ungueseed char int the chosen word
         let count=0;
        
         do {
@@ -109,12 +131,23 @@ function hint(){
             console.log(lettter);
             count++;
         }
-        while (myRight.indexOf(chosenWord.word[lettter]) !=-1 && lost != 0);
-
+        while (myRight.indexOf(chosenWord.word[lettter]) !=-1 && lost != 0);//This condition for finding an unguessed char in the chosen word.
+        
+        alingRow(chosenWord.word[lettter].toUpperCase());
          document.getElementsByTagName("td")[lettter].innerHTML=chosenWord.word[lettter].toUpperCase();
-         console.log("check 5 "+chosenWord.word[lettter] +"  count "+count);
+         for(i=0;i<chosenWord.word.length;i++){
+             if(chosenWord.word[lettter] == chosenWord.word[i] && lettter!= i ){
+                document.getElementsByTagName("td")[i].innerHTML=chosenWord.word[i].toUpperCase();
+             }
+         }
+        // document.getElementById(chosenWord.word[lettter].toUpperCase()).remove();
+         console.log("check 5 "+count +arrOFsameChar);
     }
-
+    document.getElementById("hint").style.opacity=0;
+    document.getElementById("hint").removeAttribute("onclick");
+    setTimeout(() => {
+        document.getElementById("hint").remove();
+   }, 1200);   
 };
 
 function keyword(){
@@ -484,15 +517,9 @@ for(let i=0;i<chosenWord.word.length;i++){
 }
 
 function compare(id){
-    let tr=document.getElementById(id).parentElement;
-    
-    document.getElementById(id).remove();
+
     let count=0;
-    let childsCounter =tr.childElementCount;
-    console.log(childsCounter);
-    childsCounter=30*(9-childsCounter)+"px";
-    tr.style.marginLeft=childsCounter;
-    tr.style.marginRight=childsCounter;
+    alingRow(id);
     for(let i=0;i<chosenWord.word.length;i++){
         if(id===chosenWord.word[i].toUpperCase()){
             //console.log(document.getElementsByTagName("td").length);

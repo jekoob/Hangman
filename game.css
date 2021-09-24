@@ -240,7 +240,6 @@ p {
 
   #win,
   #gameOver {
-    cursor: grab;
     font-size: 10vh;
   }
   #description {
@@ -270,5 +269,8 @@ p {
   }
   #hint {
     font-size: 4vh;
+  }
+  .fa {
+    cursor: grab;
   }
 }
