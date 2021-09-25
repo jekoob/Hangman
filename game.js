@@ -402,7 +402,7 @@ function drawHang(canvas,ctx){
             },50);			
             let counter=0;
             document.getElementById("hint").style.opacity=1;
-            document.getElementById("hint").style.cursor="grab";
+            document.getElementById("hint").style.cursor="pointer";
             document.getElementById("hint").setAttribute("onclick","hint()");
         }
      if(miss===4){
